@@ -11,5 +11,33 @@ https://www.coingecko.com/
 open website -> footer -> crypto api -> explore docs
 برای حالت رایگانش نیازی به api key نداره
 تمام api ها get هستند
+https://docs.coingecko.com/reference/endpoint-overview
 
+Coins List------------------------------------------------------------------------------------------
+curl --location 'https://api.coingecko.com/api/v3/coins/list' \
+--header 'accept: application/json' \
+--header 'Cookie: __cf_bm=XwugIPHqGOVNUJO3vWSIalxVLb3WfaQkIajeVdH18ws-1714641358-1.0.1.1-RDINqRKZqo7J1363w7elA4H7X0zgtHl2sD793RU00yRUWR.f671gD_T3DhnPcRNrgreYm3i_AGyVVaTecR_vUw'
 
+Supported vs Currencies-----------------------------------------------------------------------------
+curl --location 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies' \
+--header 'accept: application/json' \
+--header 'Cookie: __cf_bm=XwugIPHqGOVNUJO3vWSIalxVLb3WfaQkIajeVdH18ws-1714641358-1.0.1.1-RDINqRKZqo7J1363w7elA4H7X0zgtHl2sD793RU00yRUWR.f671gD_T3DhnPcRNrgreYm3i_AGyVVaTecR_vUw'
+
+Price-----------------------------------------------------------------------------------------------
+با استفاده از دیتایی که از دو تا سرویس بالا میگیریم کال میکنیم این یکی رو
+curl --location 'https://api.coingecko.com/api/v3/simple/price?ids=01coin&vs_currencies=btc' \
+--header 'accept: application/json' \
+--header 'Cookie: __cf_bm=XwugIPHqGOVNUJO3vWSIalxVLb3WfaQkIajeVdH18ws-1714641358-1.0.1.1-RDINqRKZqo7J1363w7elA4H7X0zgtHl2sD793RU00yRUWR.f671gD_T3DhnPcRNrgreYm3i_AGyVVaTecR_vUw'
+
+و همون طور که میبینید ریسپانش با توجه به دیتایی که بهش دادیم ممکنه کلید متفاوتی داشته باشه
+{
+    "01coin": {
+        "btc": 9.535e-09
+    }
+}
+ریسپانس خیلی داینامیکی داره
+که توی ۹۵ درصد سرویس ها ما به چنین حالتی برنمیخوریم
+ولی اینجا یاد میگیریم هندل کنیم
+خیلی پیچیده و خفنه
+توی هیچ دوره آموزشی نمیتونید پیدا کنید
+و حتی توی سرچ هم نمیتونید پیدا کنید
