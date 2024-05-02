@@ -1,9 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.CryptoAppMVI" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.CryptoAppMVI" parent="Theme.Material3.Dark.NoActionBar"/>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.CryptoApp" parent="Base.Theme.CryptoAppMVI">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/eerieBlack</item>
+    </style>
+    <!--Colored shadow-->
+    <style name="ColoredShadowLight">
+        <item name="android:outlineSpotShadowColor" tools:targetApi="p">@color/raisinBlack</item>
+        <item name="android:outlineAmbientShadowColor" tools:targetApi="p">@color/raisinBlack</item>
     </style>
 
-    <style name="Theme.CryptoAppMVI" parent="Base.Theme.CryptoAppMVI" />
+    <style name="RaisinBlackDropDownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">@color/raisinBlack</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_10mdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_10mdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_10mdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_10mdp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="hintTextColor">@color/darkGray</item>
+    </style>
+    <!--ProgressBar-->
+    <style name="WhiteProgressbar">
+        <item name="colorAccent">@color/darkGray</item>
+    </style>
 </resources>
