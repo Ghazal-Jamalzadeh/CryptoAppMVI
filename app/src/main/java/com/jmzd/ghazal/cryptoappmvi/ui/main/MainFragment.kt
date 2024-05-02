@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.jmzd.ghazal.cryptoappmvi.R
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList.ResponseCoinsListItem
+import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseSupportedCurrencies
 import com.jmzd.ghazal.cryptoappmvi.databinding.FragmentMainBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseFragment
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseState
@@ -41,6 +42,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 if (isNetworkAvailable) {
                     viewModel.intentChannel.send(MainIntent.GetCoinsList)
+                    viewModel.intentChannel.send(MainIntent.GetSupportedCurrencies)
                 }
             }
         }
@@ -62,6 +64,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                             }
 
                             is BaseState.Main.LoadCoinsList -> initCoinsSpinner(state.coinsList)
+                            is BaseState.Main.LoadSupportedCurrenciesList -> initSupportedSpinner(state.supportedList)
                             else -> {}
                         }
                     }
@@ -83,6 +86,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 coinPriceId = data[position].id ?: ""
                 //Call api
 //                if (coinPriceName.isNotEmpty())
+//                    callCoinPriceApi()
+            }
+        }
+    }
+
+    private fun initSupportedSpinner(data: ResponseSupportedCurrencies) {
+        //Coins name
+        val coinsName = mutableListOf<String>()
+        data.forEach { coinsName.add(it) }
+        //Adapter
+        val coinsAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, coinsName)
+        //Update view
+        binding.toCoinAutoTxt.apply {
+            setAdapter(coinsAdapter)
+            setOnItemClickListener { _, _, position, _ ->
+                coinPriceName = data[position]
+                //Call api
+//                if (coinPriceId.isNotEmpty())
 //                    callCoinPriceApi()
             }
         }

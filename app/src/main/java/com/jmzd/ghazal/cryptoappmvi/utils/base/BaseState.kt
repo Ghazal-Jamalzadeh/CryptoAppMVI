@@ -10,6 +10,6 @@ sealed class BaseState ( val error : String? = null) {
 
     sealed class Main : BaseState() {
         data class LoadCoinsList(val coinsList: ResponseCoinsList) : Main()
-        data class LoadSupportedCurrenciesList(val coinsList: ResponseSupportedCurrencies) : Main()
+        data class LoadSupportedCurrenciesList(val supportedList: ResponseSupportedCurrencies) : Main()
     }
 }
