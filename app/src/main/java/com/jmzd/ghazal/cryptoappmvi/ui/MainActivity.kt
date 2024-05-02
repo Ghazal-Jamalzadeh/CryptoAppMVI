@@ -1,7 +1,8 @@
-package com.jmzd.ghazal.cryptoappmvi
+package com.jmzd.ghazal.cryptoappmvi.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jmzd.ghazal.cryptoappmvi.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
