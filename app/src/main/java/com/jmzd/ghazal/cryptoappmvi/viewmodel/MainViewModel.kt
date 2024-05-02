@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
         intentChannel.consumeAsFlow().collect { intent ->
             when (intent) {
                 is MainIntent.GetCoinsList -> fetchingCoinsList()
+                is MainIntent.GetSupportedCurrencies -> fetchingSupportedCurrenciesList()
             }
         }
     }
@@ -36,6 +37,16 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
         val response = repository.getCoinsList()
         if (response.isSuccessful) {
             response.body()?.let { BaseState.Main.LoadCoinsList(it) }?.let { _state.emit(it) }
+        } else {
+            val error = ErrorResponse(response).generateResponse()
+            _state.emit(error)
+        }
+    }
+
+    private fun fetchingSupportedCurrenciesList() = viewModelScope.launch {
+        val response = repository.getSupportedCurrencies()
+        if (response.isSuccessful) {
+            response.body()?.let { BaseState.Main.LoadSupportedCurrenciesList(it) }?.let { _state.emit(it) }
         } else {
             val error = ErrorResponse(response).generateResponse()
             _state.emit(error)
