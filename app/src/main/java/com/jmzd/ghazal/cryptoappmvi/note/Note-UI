@@ -8,3 +8,30 @@ gradiant charts-----------------------------------------------------------------
 DropDowns-------------------------------------------------------------------------------------------
 دراپ داون ها عینا از پروژه فروشگاهی آورده شدن با تم هاشون
 صرفا رنگ ها یکمی عوض شدن
+و همونطور که میبینید از ویوی اسپینر استفاده نکردیم
+بلکه از MaterialAutoCompleteTextView استفاده کردیم
+استایل و کد کاتلین هم توی پروژه هست دقت کنید بهش
+نحوه ست کردن آداپتر و ...
+
+  <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fromCoinInpLay"
+                style="@style/RaisinBlackDropDownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_10mdp"
+                android:layout_marginEnd="@dimen/_5mdp"
+                android:hint="@string/from"
+                app:layout_constraintEnd_toStartOf="@id/guide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/fromCoinAutoTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@color/lotion"
+                    android:textSize="@dimen/_10font_mdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>

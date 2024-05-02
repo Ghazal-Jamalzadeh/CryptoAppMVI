@@ -1,16 +1,16 @@
 package com.jmzd.ghazal.cryptoappmvi.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.jmzd.ghazal.cryptoappmvi.R
+import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList.ResponseCoinsListItem
 import com.jmzd.ghazal.cryptoappmvi.databinding.FragmentMainBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseFragment
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseState
@@ -28,6 +28,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     //view model
     private val viewModel by viewModels<MainViewModel>()
+
+    //other
+    private var coinPriceId = ""
+    private var coinPriceName = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,7 +61,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                                 state.error?.let { root.showSnackBar(it) }
                             }
 
-                            is BaseState.Main.LoadCoinsList ->{}// initCoinsSpinner(state.coinsList)
+                            is BaseState.Main.LoadCoinsList -> initCoinsSpinner(state.coinsList)
                             else -> {}
                         }
                     }
@@ -66,6 +70,23 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         }
     }
 
+    private fun initCoinsSpinner(data: MutableList<ResponseCoinsListItem>) {
+        //Coins name
+        val coinsName = mutableListOf<String>()
+        data.forEach { coinsName.add(it.name ?: "---") }
+        //Adapter
+        val coinsAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, coinsName)
+        //Update view
+        binding.fromCoinAutoTxt.apply {
+            setAdapter(coinsAdapter)
+            setOnItemClickListener { _, _, position, _ ->
+                coinPriceId = data[position].id ?: ""
+                //Call api
+//                if (coinPriceName.isNotEmpty())
+//                    callCoinPriceApi()
+            }
+        }
+    }
 
 
 }
