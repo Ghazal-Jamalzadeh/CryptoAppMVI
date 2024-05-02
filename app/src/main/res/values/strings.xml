@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">CryptoAppMVI</string>
+    <string name="checkYourNetwork">Please check your Internet!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="showMore">Show more</string>
+    <string name="websites">Websites</string>
+    <string name="genesisDate">Genesis date</string>
+    <string name="homepage">Homepage : </string>
+    <string name="priceChangePercentage">Price Change Percentage</string>
+    <string name="_1d">1d</string>
+    <string name="_7d">7d</string>
+    <string name="_14d">14d</string>
+    <string name="_30d">30d</string>
+    <string name="_60d">60d</string>
+    <string name="_200d">200d</string>
+    <string name="_1y">1y</string>
+    <string name="officialForm">Official Form : </string>
+    <string name="githubRepo">Github Repo : </string>
+    <string name="category">"Category"</string>
 </resources>
