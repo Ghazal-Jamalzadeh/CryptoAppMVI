@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.jmzd.ghazal.cryptoappmvi.data.repository.MainRepository
 import com.jmzd.ghazal.cryptoappmvi.ui.main.MainIntent
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseState
+import com.jmzd.ghazal.cryptoappmvi.utils.network.ErrorResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,8 +37,8 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
         if (response.isSuccessful) {
             response.body()?.let { BaseState.Main.LoadCoinsList(it) }?.let { _state.emit(it) }
         } else {
-//            val error = ErrorResponse(response).generateResponse()
-//            _state.emit(error)
+            val error = ErrorResponse(response).generateResponse()
+            _state.emit(error)
         }
     }
 
