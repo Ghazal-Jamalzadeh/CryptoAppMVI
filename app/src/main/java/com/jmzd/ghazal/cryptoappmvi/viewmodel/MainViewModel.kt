@@ -32,7 +32,13 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
     }
 
     private fun fetchingCoinsList() = viewModelScope.launch {
-
+        val response = repository.getCoinsList()
+        if (response.isSuccessful) {
+            response.body()?.let { BaseState.Main.LoadCoinsList(it) }?.let { _state.emit(it) }
+        } else {
+//            val error = ErrorResponse(response).generateResponse()
+//            _state.emit(error)
+        }
     }
 
 }
