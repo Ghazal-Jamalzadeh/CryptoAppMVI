@@ -54,3 +54,47 @@ sealed class FavouritesState {
      data class LoadCoinsList(val coinsList: ResponseCoinsList) : Main()
 
  توی کلاس بیس دیتا کلاسه یه اروری میداد
+
+
+ViewModel-------------------------------------------------------------------------------------------
+ما توی ویومدل توی معماری ام وی آی
+میایم یک چنلی تعریف میکنیم که اینتنت ها رو روی این چنل میفرستیم
+چنل مربوط میشه به کروتین ها
+و یک استیت فلو برای فرستادن استیت ها در نظر میگیریم
+
+ساختار کلی یک ویومدل به شکل زیر خواهد بود:
+
+
+@HiltViewModel
+class MainViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
+    val intentChannel = Channel<MainIntent>()
+    private val _state = MutableStateFlow<BaseState>(BaseState.Idle)
+    val state: StateFlow<BaseState> get() = _state
+
+    init {
+        handleIntents()
+    }
+
+    private fun handleIntents() = viewModelScope.launch {
+        intentChannel.consumeAsFlow().collect { intent ->
+            when (intent) {
+                is MainIntent.GetCoinsList -> fetchingCoinsList()
+            }
+        }
+    }
+
+    private fun fetchingCoinsList() = viewModelScope.launch {
+        val response = repository.getCoinsList()
+        if (response.isSuccessful) {
+            response.body()?.let { BaseState.Main.LoadCoinsList(it) }?.let { _state.emit(it) }
+        } else {
+//            val error = ErrorResponse(response).generateResponse()
+//            _state.emit(error)
+        }
+    }
+
+}
+
+StateFlow vs SharedFlow-----------------------------------------------------------------------------
+استیت فلو از شانس اسمش استیته ها
+ربطی به اینکه استیت میفرستیم توش نداره
