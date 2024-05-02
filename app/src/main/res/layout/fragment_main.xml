@@ -1,14 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:layout_height="match_parent">
+    <!--App Name-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/appName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15mdp"
+        android:layout_marginTop="@dimen/_40mdp"
+        android:text="@string/app_name"
+        android:textColor="@color/lotion"
+        android:textSize="@dimen/_25font_mdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Exchange-->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/exchangeCard"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_120mdp"
+        android:layout_marginHorizontal="@dimen/_15mdp"
+        android:layout_marginTop="@dimen/_10mdp"
+        android:theme="@style/ColoredShadowLight"
+        app:cardBackgroundColor="@color/dragonBlack"
+        app:cardCornerRadius="@dimen/_15mdp"
+        app:cardElevation="@dimen/_10mdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appName">
+        <!--Container-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--Img-->
+            <ImageView
+                android:id="@+id/coinImg"
+                android:layout_width="@dimen/_100mdp"
+                android:layout_height="@dimen/_120mdp"
+                android:layout_marginEnd="@dimen/mines20mdp"
+                android:layout_marginBottom="@dimen/mines35mdp"
+                android:alpha="0.9"
+                android:rotation="-20"
+                android:src="@drawable/exchange"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <!--From-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fromCoinInpLay"
+                style="@style/RaisinBlackDropDownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10mdp"
+                android:layout_marginTop="@dimen/_10mdp"
+                android:layout_marginEnd="@dimen/_5mdp"
+                android:hint="@string/from"
+                app:layout_constraintEnd_toStartOf="@id/guide"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/fromCoinAutoTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@color/lotion"
+                    android:textSize="@dimen/_10font_mdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!--Guide-->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+            <!--To-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/toCoinInpLay"
+                style="@style/RaisinBlackDropDownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5mdp"
+                android:layout_marginTop="@dimen/_10mdp"
+                android:layout_marginEnd="@dimen/_10mdp"
+                android:hint="@string/to"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guide"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/toCoinAutoTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@color/lotion"
+                    android:textSize="@dimen/_10font_mdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <!--Price-->
+            <TextView
+                android:id="@+id/exchangePriceTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10mdp"
+                android:layout_marginEnd="@dimen/_20mdp"
+                android:layout_marginBottom="@dimen/_10mdp"
+                android:maxLength="9"
+                android:textColor="@color/lotion"
+                android:textSize="@dimen/_30font_mdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/coinImg"
+                app:layout_constraintStart_toStartOf="@id/fromCoinInpLay" />
+            <!--ProgressBar-->
+            <ProgressBar
+                android:id="@+id/exchangeLoading"
+                android:layout_width="@dimen/_20mdp"
+                android:layout_height="@dimen/_20mdp"
+                android:layout_marginBottom="@dimen/_20mdp"
+                android:theme="@style/WhiteProgressbar"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/coinImg"
+                app:layout_constraintStart_toStartOf="@id/fromCoinInpLay" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    <!--List-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coinsMarketList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/_10mdp"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/_5mdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exchangeCard" />
+    <!--ProgressBar-->
+    <ProgressBar
+        android:id="@+id/coinsMarketLoading"
+        android:layout_width="@dimen/_20mdp"
+        android:layout_height="@dimen/_20mdp"
+        android:layout_marginTop="@dimen/_20mdp"
+        android:theme="@style/WhiteProgressbar"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exchangeCard" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
