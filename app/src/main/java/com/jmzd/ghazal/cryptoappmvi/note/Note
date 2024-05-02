@@ -130,6 +130,7 @@ Fragment : Call API-------------------------------------------------------------
 میگیم توی کریت بکن
 ولی گزینه های دیگه ای مثل رسیوم و دیستروی هم داره
 جالب
+فکر کنم معادل همون لانچ ون کریتد هست که دپریکیت شده
             repeatOnLifecycle(Lifecycle.State.CREATED){
                 if (isNetworkAvailable) {
                     viewModel.intentChannel.send(MainIntent.GetCoinsList)
