@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-<!--    android:icon="@drawable/logo"-->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,6 +18,7 @@
         android:largeHeap="true"
         android:supportsRtl="false"
         tools:replace="android:supportsRtl"
+        android:icon="@drawable/logo"
         >
         <activity
             android:name=".ui.MainActivity"
