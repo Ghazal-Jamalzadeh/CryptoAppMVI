@@ -41,3 +41,14 @@ curl --location 'https://api.coingecko.com/api/v3/simple/price?ids=01coin&vs_cur
 خیلی پیچیده و خفنه
 توی هیچ دوره آموزشی نمیتونید پیدا کنید
 و حتی توی سرچ هم نمیتونید پیدا کنید
+
+Coins Market----------------------------------------------------------------------------------------
+curl --request GET \
+     --url 'https://pro-api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true' \
+     --header 'accept: application/json'
+
+این سرویس پیجینگ داره ولی ما توی این پروژه پیجینگ نمیزنیم براش
+دیگه توی پروژه های قبلی زدیم یاد گرفتیم
+خودش به صورت پیش فرض صد تا آیتم پر پیج میده به کاربر که کافیه
+
+sparkline = اطلاعات نمودار رو میخوایم ازش
