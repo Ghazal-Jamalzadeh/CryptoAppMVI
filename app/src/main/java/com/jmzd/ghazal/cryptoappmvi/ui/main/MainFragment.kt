@@ -15,6 +15,7 @@ import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseSupportedCurrencies
 import com.jmzd.ghazal.cryptoappmvi.databinding.FragmentMainBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseFragment
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseState
+import com.jmzd.ghazal.cryptoappmvi.utils.changeVisibility
 import com.jmzd.ghazal.cryptoappmvi.utils.showSnackBar
 import com.jmzd.ghazal.cryptoappmvi.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,6 +66,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
                             is BaseState.Main.LoadCoinsList -> initCoinsSpinner(state.coinsList)
                             is BaseState.Main.LoadSupportedCurrenciesList -> initSupportedSpinner(state.supportedList)
+                            is BaseState.Main.LoadingPrice -> exchangeLoading.changeVisibility(true, exchangePriceTxt)
+                            is BaseState.Main.LoadPrice -> initCoinPrice(state.price)
                             else -> {}
                         }
                     }
@@ -85,8 +88,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             setOnItemClickListener { _, _, position, _ ->
                 coinPriceId = data[position].id ?: ""
                 //Call api
-//                if (coinPriceName.isNotEmpty())
-//                    callCoinPriceApi()
+                if (coinPriceName.isNotEmpty())
+                    callCoinPriceApi()
             }
         }
     }
@@ -103,9 +106,26 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             setOnItemClickListener { _, _, position, _ ->
                 coinPriceName = data[position]
                 //Call api
-//                if (coinPriceId.isNotEmpty())
-//                    callCoinPriceApi()
+                if (coinPriceId.isNotEmpty())
+                    callCoinPriceApi()
             }
+        }
+    }
+
+    private fun callCoinPriceApi() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                if (isNetworkAvailable) {
+                    viewModel.intentChannel.send(MainIntent.GetPrice(coinPriceId, coinPriceName))
+                }
+            }
+        }
+    }
+
+    private fun initCoinPrice(price: Double) {
+        binding.apply {
+            exchangeLoading.changeVisibility(false, exchangePriceTxt)
+            exchangePriceTxt.text = price.toString()
         }
     }
 
