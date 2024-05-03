@@ -21,7 +21,7 @@ interface ApiServices {
     ): Response<Map<String, Map<String, Double>>>
 
     @GET("coins/markets")
-    suspend fun getCoinsMarkets(@Query("vs_currency") vsCurrency : String ,
+    suspend fun getCoinsMarkets(@Query("vs_currency") currency : String ,
                                 @Query("sparkline") sparkLine : Boolean  ,
                                 @Query("page") page : Int)
     : Response<ResponseCoinsMarket>
