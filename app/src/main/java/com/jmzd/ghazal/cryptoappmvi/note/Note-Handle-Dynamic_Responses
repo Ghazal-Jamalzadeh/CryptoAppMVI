@@ -22,3 +22,18 @@ Response<Map<String, Map<String, Double>>>
 توی یکی از پروژه های قبلی یاد گرفتیم چطور ارور بادی داینامیک رو هندل کنیم
 که توش مپ رو پیمایش میکردیم
 }
+
+توی ویو مدل مین به این شکل استخراج میکنیم قیمت رو
+ if (response.isSuccessful) {
+            val responseData = response.body()
+            responseData?.let {
+                val coinInfo = it[fromId]?.get(toCurrency)
+                coinInfo?.let { info -> BaseState.Main.LoadPrice(info) }
+                    ?.let { price -> _state.emit(price) }
+            }
+        }
+
+ مپ رو میتونیم هم با ایندکس استخراج کنیم هم متد get
+ مربوط به کالکشن هاست دیگه
+ چیزهای دیگه ای مثل keys , entries هم داره
+ مثلا یه علت اینکه ما دومی رو متد گت نوشتیم همین قابلیت نال چک هست

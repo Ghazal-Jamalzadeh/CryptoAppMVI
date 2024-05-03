@@ -29,6 +29,7 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
             when (intent) {
                 is MainIntent.GetCoinsList -> fetchingCoinsList()
                 is MainIntent.GetSupportedCurrencies -> fetchingSupportedCurrenciesList()
+                is MainIntent.GetPrice -> fetchingPrice(intent.fromId, intent.toCurrency)
             }
         }
     }
@@ -46,7 +47,24 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
     private fun fetchingSupportedCurrenciesList() = viewModelScope.launch {
         val response = repository.getSupportedCurrencies()
         if (response.isSuccessful) {
-            response.body()?.let { BaseState.Main.LoadSupportedCurrenciesList(it) }?.let { _state.emit(it) }
+            response.body()?.let { BaseState.Main.LoadSupportedCurrenciesList(it) }
+                ?.let { _state.emit(it) }
+        } else {
+            val error = ErrorResponse(response).generateResponse()
+            _state.emit(error)
+        }
+    }
+
+    private fun fetchingPrice(fromId: String, toCurrency: String) = viewModelScope.launch {
+        _state.emit(BaseState.Main.LoadingPrice)
+        val response = repository.getPrice(fromId, toCurrency)
+        if (response.isSuccessful) {
+            val responseData = response.body()
+            responseData?.let {
+                val coinInfo = it[fromId]?.get(toCurrency)
+                coinInfo?.let { info -> BaseState.Main.LoadPrice(info) }
+                    ?.let { price -> _state.emit(price) }
+            }
         } else {
             val error = ErrorResponse(response).generateResponse()
             _state.emit(error)
