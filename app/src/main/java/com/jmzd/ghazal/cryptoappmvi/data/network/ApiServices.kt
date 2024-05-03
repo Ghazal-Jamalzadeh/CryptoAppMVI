@@ -4,6 +4,7 @@ import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseSupportedCurrencies
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiServices {
 
@@ -12,5 +13,10 @@ interface ApiServices {
 
     @GET("simple/supported_vs_currencies")
     suspend fun getSupportedCurrencies() : Response<ResponseSupportedCurrencies>
+
+    @GET("simple/price")
+    suspend fun getCoinPrice(
+        @Query("ids") ids: String, @Query("vs_currencies") currency: String
+    ): Response<Map<String, Map<String, Double>>>
 
 }
