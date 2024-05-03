@@ -1,6 +1,7 @@
 package com.jmzd.ghazal.cryptoappmvi.data.network
 
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList
+import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsMarket
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseSupportedCurrencies
 import retrofit2.Response
 import retrofit2.http.GET
@@ -18,5 +19,11 @@ interface ApiServices {
     suspend fun getCoinPrice(
         @Query("ids") ids: String, @Query("vs_currencies") currency: String
     ): Response<Map<String, Map<String, Double>>>
+
+    @GET("coins/markets")
+    suspend fun getCoinsMarkets(@Query("vs_currency") vsCurrency : String ,
+                                @Query("sparkline") sparkLine : Boolean  ,
+                                @Query("page") page : Int)
+    : Response<ResponseCoinsMarket>
 
 }
