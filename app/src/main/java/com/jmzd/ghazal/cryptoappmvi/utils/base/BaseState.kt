@@ -15,6 +15,6 @@ sealed class BaseState ( val error : String? = null) {
         data class LoadSupportedCurrenciesList(val supportedList: ResponseSupportedCurrencies) : Main()
         data class LoadPrice(val price : Double) : Main()
         data object LoadingPrice : Main()
-        data class LoadCoinsMarket(val coinsMarkets : ResponseCoinsMarket)
+        data class LoadCoinsMarket(val coinsMarkets : ResponseCoinsMarket) : Main()
     }
 }
