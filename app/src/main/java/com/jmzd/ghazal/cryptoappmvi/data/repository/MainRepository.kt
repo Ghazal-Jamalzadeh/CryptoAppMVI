@@ -7,4 +7,5 @@ class MainRepository @Inject constructor(private val api : ApiServices) {
 
     suspend fun getCoinsList() = api.getCoinsList()
     suspend fun getSupportedCurrencies() = api.getSupportedCurrencies()
+    suspend fun getPrice(fromId : String , toCurrency : String) = api.getCoinPrice(fromId , toCurrency)
 }
