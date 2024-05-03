@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.jmzd.ghazal.cryptoappmvi.R
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList.ResponseCoinsListItem
+import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsMarket
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseSupportedCurrencies
 import com.jmzd.ghazal.cryptoappmvi.databinding.FragmentMainBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseFragment
@@ -44,6 +45,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 if (isNetworkAvailable) {
                     viewModel.intentChannel.send(MainIntent.GetCoinsList)
                     viewModel.intentChannel.send(MainIntent.GetSupportedCurrencies)
+                    viewModel.intentChannel.send(MainIntent.GetCoinsMarkets)
                 }
             }
         }
@@ -68,6 +70,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                             is BaseState.Main.LoadSupportedCurrenciesList -> initSupportedSpinner(state.supportedList)
                             is BaseState.Main.LoadingPrice -> exchangeLoading.changeVisibility(true, exchangePriceTxt)
                             is BaseState.Main.LoadPrice -> initCoinPrice(state.price)
+                            is BaseState.Main.LoadCoinsMarket -> initCoinsMarketRecyclerView(state.coinsMarkets)
                             else -> {}
                         }
                     }
@@ -126,6 +129,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         binding.apply {
             exchangeLoading.changeVisibility(false, exchangePriceTxt)
             exchangePriceTxt.text = price.toString()
+        }
+    }
+
+    private fun initCoinsMarketRecyclerView(coinsMarkets: ResponseCoinsMarket) {
+        binding.apply {
+//            coinsMarketLoading.isVisible = false
+//            //Recyclerview
+//            coinsAdapter.setData(coinsMarkets)
+//            val layoutManager = GridLayoutManager(requireContext(), 2)
+//            coinsMarketList.setupRecyclerview(layoutManager, coinsAdapter)
+//            //Click
+//            coinsAdapter.setOnItemClickListener {
+//                viewLifecycleOwner.lifecycleScope.launch {
+//                    repeatOnLifecycle(Lifecycle.State.CREATED) {
+//                        viewModel.intentChannel.send(MainIntent.NavigateToDetail(it.id!!))
+//                    }
+//                }
+//            }
         }
     }
 
