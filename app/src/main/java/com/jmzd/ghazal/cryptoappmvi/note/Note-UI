@@ -5,6 +5,22 @@ gradiant charts-----------------------------------------------------------------
 
    implementation 'com.diogobernardino:williamchart:3.10.1'
 
+
+           <com.db.williamchart.view.LineChartView
+               android:id="@+id/coinChart"
+               android:layout_width="0dp"
+               android:layout_height="@dimen/_60mdp"
+               android:layout_marginBottom="@dimen/_15mdp"
+               app:chart_axis="none"
+               //روی محور عمودی تایتلی ننویسه برامون
+               app:chart_lineThickness="0.5dp"
+               // ضخامت خط
+               app:chart_smoothLine="true"
+               // حالت نرم داشته باشه نمودار
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"/>
+
 DropDowns-------------------------------------------------------------------------------------------
 دراپ داون ها عینا از پروژه فروشگاهی آورده شدن با تم هاشون
 صرفا رنگ ها یکمی عوض شدن

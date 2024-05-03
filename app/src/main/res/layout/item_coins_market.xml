@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_140mdp"
+    android:layout_margin="@dimen/_5mdp"
+    app:cardBackgroundColor="@color/raisinBlack"
+    app:cardCornerRadius="@dimen/_15mdp"
+    app:strokeWidth="0dp">
+    <!--Container-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--Symbol-->
+        <TextView
+            android:id="@+id/symbolTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_7mdp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/lotion"
+            android:textSize="@dimen/_12font_mdp"
+            app:layout_constraintEnd_toStartOf="@id/iconImg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iconImg" />
+        <!--Name-->
+        <TextView
+            android:id="@+id/nameTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5mdp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/darkGray"
+            android:textSize="@dimen/_7font_mdp"
+            app:layout_constraintEnd_toEndOf="@id/symbolTxt"
+            app:layout_constraintStart_toStartOf="@id/symbolTxt"
+            app:layout_constraintTop_toBottomOf="@id/symbolTxt" />
+        <!--Icon-->
+        <ImageView
+            android:id="@+id/iconImg"
+            android:layout_width="@dimen/_20mdp"
+            android:layout_height="@dimen/_20mdp"
+            android:layout_margin="@dimen/_7mdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Chart-->
+        <com.db.williamchart.view.LineChartView
+            android:id="@+id/coinChart"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_60mdp"
+            android:layout_marginBottom="@dimen/_15mdp"
+            app:chart_axis="none"
+            app:chart_lineThickness="0.5dp"
+            app:chart_smoothLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <!--Price-->
+        <TextView
+            android:id="@+id/priceTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/lotion"
+            android:textSize="@dimen/_14font_mdp"
+            app:layout_constraintStart_toStartOf="@id/symbolTxt"
+            app:layout_constraintBottom_toTopOf="@id/coinChart" />
+        <!--Change-->
+        <TextView
+            android:id="@+id/changeTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/lotion"
+            android:maxLength="8"
+            android:layout_marginStart="@dimen/_3mdp"
+            android:textSize="@dimen/_9font_mdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
