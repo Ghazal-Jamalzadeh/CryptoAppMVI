@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.jmzd.ghazal.cryptoappmvi.R
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList.ResponseCoinsListItem
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsMarket
@@ -17,10 +18,12 @@ import com.jmzd.ghazal.cryptoappmvi.databinding.FragmentMainBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseFragment
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseState
 import com.jmzd.ghazal.cryptoappmvi.utils.changeVisibility
+import com.jmzd.ghazal.cryptoappmvi.utils.setupRecyclerview
 import com.jmzd.ghazal.cryptoappmvi.utils.showSnackBar
 import com.jmzd.ghazal.cryptoappmvi.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
@@ -31,6 +34,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     //view model
     private val viewModel by viewModels<MainViewModel>()
+
+    //adapter
+    @Inject
+    lateinit var coinsAdapter: CoinsAdapter
 
     //other
     private var coinPriceId = ""
@@ -134,19 +141,19 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private fun initCoinsMarketRecyclerView(coinsMarkets: ResponseCoinsMarket) {
         binding.apply {
-//            coinsMarketLoading.isVisible = false
-//            //Recyclerview
-//            coinsAdapter.setData(coinsMarkets)
-//            val layoutManager = GridLayoutManager(requireContext(), 2)
-//            coinsMarketList.setupRecyclerview(layoutManager, coinsAdapter)
-//            //Click
-//            coinsAdapter.setOnItemClickListener {
-//                viewLifecycleOwner.lifecycleScope.launch {
-//                    repeatOnLifecycle(Lifecycle.State.CREATED) {
+            coinsMarketLoading.isVisible = false
+            //Recyclerview
+            coinsAdapter.setData(coinsMarkets)
+            val layoutManager = GridLayoutManager(requireContext(), 2)
+            coinsMarketList.setupRecyclerview(layoutManager, coinsAdapter)
+            //Click
+            coinsAdapter.setOnItemClickListener {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repeatOnLifecycle(Lifecycle.State.CREATED) {
 //                        viewModel.intentChannel.send(MainIntent.NavigateToDetail(it.id!!))
-//                    }
-//                }
-//            }
+                    }
+                }
+            }
         }
     }
 
