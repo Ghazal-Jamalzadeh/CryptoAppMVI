@@ -12,6 +12,7 @@ import com.jmzd.ghazal.cryptoappmvi.R
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsMarket.ResponseCoinsMarketItem
 import com.jmzd.ghazal.cryptoappmvi.databinding.ItemCoinsMarketBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseDiffUtils
+import com.jmzd.ghazal.cryptoappmvi.utils.doublePairs
 import com.jmzd.ghazal.cryptoappmvi.utils.loadImage
 import com.jmzd.ghazal.cryptoappmvi.utils.moneySeparating
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -47,11 +48,11 @@ class CoinsAdapter @Inject constructor(@ApplicationContext private val context: 
                 item.image?.let { iconImg.loadImage(it) }
                 //Chart
                 coinChart.apply {
-//                    gradientFillColors = intArrayOf(chartColorAlpha(item.priceChangePercentage24h!!), Color.TRANSPARENT)
-//                    lineColor = chartColorLine(item.priceChangePercentage24h)
-//                    animation.duration = 800
-//                    val chartData = item.sparklineIn7d?.price?.dropLast(100).doublePairs()
-//                    animate(chartData)
+                    gradientFillColors = intArrayOf(chartColorAlpha(item.priceChangePercentage24h!!), Color.TRANSPARENT)
+                    lineColor = chartColorLine(item.priceChangePercentage24h)
+                    animation.duration = 800
+                    val chartData = item.sparklineIn7d?.price?.dropLast(100).doublePairs()
+                    animate(chartData)
                 }
                 //Change
                 changeTxt.apply {

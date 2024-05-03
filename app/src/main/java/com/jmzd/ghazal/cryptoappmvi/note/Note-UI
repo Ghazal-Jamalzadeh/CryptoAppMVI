@@ -5,7 +5,7 @@ gradiant charts-----------------------------------------------------------------
 
    implementation 'com.diogobernardino:williamchart:3.10.1'
 
-
+----------------------------XML
            <com.db.williamchart.view.LineChartView
                android:id="@+id/coinChart"
                android:layout_width="0dp"
@@ -20,6 +20,28 @@ gradiant charts-----------------------------------------------------------------
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"/>
+-----------------------------Kotlin
+               //Chart
+               coinChart.apply {
+                   //گرادیانت آرایه ای از رنگ ها میگیره
+                   که ما یه شرطی براش میذاریم اگر قیمت صعودی بود فلان رنگ و در غیر این صورت یک رنگ دیگه
+                   اینو به صورت متد نوشتیم
+                   توی تکست ویوها هم شرط رنگو اعمال کردیم
+                   gradientFillColors = intArrayOf(chartColorAlpha(item.priceChangePercentage24h!!), Color.TRANSPARENT)
+                   //رنگ خط نمودار
+                   lineColor = chartColorLine(item.priceChangePercentage24h)
+                   // مدت زمان اجرای انیمشن
+                   animation.duration = 800
+
+                   این یک لیستی میگیره به صورت pair
+                   از استرینگ و فلوت
+                   استرینگ همون تایتل هاش هست
+                   ما استرینگی ندارم توی رسپانس
+                   ما خودمون میایم یک اکستشن مینویسسم خودمون جنریت میکنیم
+                   val chartData = item.sparklineIn7d?.price?.dropLast(100).doublePairs()
+                   animate(chartData)
+               }
+
 
 DropDowns-------------------------------------------------------------------------------------------
 دراپ داون ها عینا از پروژه فروشگاهی آورده شدن با تم هاشون
@@ -51,3 +73,11 @@ DropDowns-----------------------------------------------------------------------
                     android:textSize="@dimen/_10font_mdp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+Change TextView Drawable Icon & Color---------------------------------------------------------------
+                changeTxt.apply {
+                    setCompoundDrawablesWithIntrinsicBounds(changeIcon(item.priceChangePercentage24h!!), 0, 0, 0)
+                    compoundDrawables[0].setTint(chartColorLine(item.priceChangePercentage24h))
+                    text = "$${item.priceChange24h}"
+                    setTextColor(chartColorLine(item.priceChangePercentage24h))
+                }
