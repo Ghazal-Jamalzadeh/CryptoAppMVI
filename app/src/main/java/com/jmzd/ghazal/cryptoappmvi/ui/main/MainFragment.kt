@@ -78,6 +78,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                             is BaseState.Main.LoadingPrice -> exchangeLoading.changeVisibility(true, exchangePriceTxt)
                             is BaseState.Main.LoadPrice -> initCoinPrice(state.price)
                             is BaseState.Main.LoadCoinsMarket -> initCoinsMarketRecyclerView(state.coinsMarkets)
+                            is BaseState.Main.NavigateToDetail -> navigateToDetail(state.id)
                             else -> {}
                         }
                     }
@@ -155,6 +156,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 }
             }
         }
+    }
+
+    private fun navigateToDetail(id: String) {
+//        val direction = MainFragmentDirections.actionToDetail(id)
+//        findNavController().navigate(direction)
     }
 
 
