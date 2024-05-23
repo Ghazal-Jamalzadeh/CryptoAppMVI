@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jmzd.ghazal.cryptoappmvi.R
 import com.jmzd.ghazal.cryptoappmvi.data.model.main.ResponseCoinsList.ResponseCoinsListItem
@@ -151,7 +152,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             coinsAdapter.setOnItemClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {
                     repeatOnLifecycle(Lifecycle.State.CREATED) {
-//                        viewModel.intentChannel.send(MainIntent.NavigateToDetail(it.id!!))
+                        viewModel.intentChannel.send(MainIntent.NavigateToDetail(it.id!!))
                     }
                 }
             }
@@ -159,8 +160,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     }
 
     private fun navigateToDetail(id: String) {
-//        val direction = MainFragmentDirections.actionToDetail(id)
-//        findNavController().navigate(direction)
+        val direction = MainFragmentDirections.actionMainFragmentToDetailFragment(id)
+        findNavController().navigate(direction)
     }
 
 
