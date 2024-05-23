@@ -31,6 +31,7 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
                 is MainIntent.GetSupportedCurrencies -> fetchingSupportedCurrenciesList()
                 is MainIntent.GetPrice -> fetchingPrice(intent.fromId, intent.toCurrency)
                 is MainIntent.GetCoinsMarkets -> fetchingCoinsMarket()
+                is MainIntent.NavigateToDetail -> navigateToDetail(intent.id)
             }
         }
     }
@@ -81,6 +82,10 @@ class MainViewModel @Inject constructor(private val repository: MainRepository) 
             val error = ErrorResponse(response).generateResponse()
             _state.emit(error)
         }
+    }
+
+    private fun navigateToDetail(id: String) = viewModelScope.launch {
+        _state.emit(BaseState.Main.NavigateToDetail(id))
     }
 
 }
