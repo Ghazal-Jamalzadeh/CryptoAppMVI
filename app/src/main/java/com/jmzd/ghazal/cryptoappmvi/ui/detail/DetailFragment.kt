@@ -1,10 +1,12 @@
 package com.jmzd.ghazal.cryptoappmvi.ui.detail
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -18,6 +20,7 @@ import com.jmzd.ghazal.cryptoappmvi.databinding.FragmentDetailBinding
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseFragment
 import com.jmzd.ghazal.cryptoappmvi.utils.base.BaseState
 import com.jmzd.ghazal.cryptoappmvi.utils.changeVisibility
+import com.jmzd.ghazal.cryptoappmvi.utils.doublePairs
 import com.jmzd.ghazal.cryptoappmvi.utils.loadImage
 import com.jmzd.ghazal.cryptoappmvi.utils.moneySeparating
 import com.jmzd.ghazal.cryptoappmvi.utils.openBrowser
@@ -154,14 +157,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
             //Chart
             detail.marketData?.let { market ->
                 coinChartBig.apply {
-//                    gradientFillColors = intArrayOf(chartColorAlpha(market.priceChangePercentage24h!!), Color.TRANSPARENT)
-//                    lineColor = chartColorLine(market.priceChangePercentage24h)
-//                    animation.duration = 800
-//                    val chartData = market.sparkline7d?.price?.dropLast(100).doublePairs()
-//                    animate(chartData)
+                    gradientFillColors = intArrayOf(chartColorAlpha(market.priceChangePercentage24h!!), Color.TRANSPARENT)
+                    lineColor = chartColorLine(market.priceChangePercentage24h)
+                    animation.duration = 800
+                    val chartData = market.sparkline7d?.price?.dropLast(100).doublePairs()
+                    animate(chartData)
                 }
             }
         }
+    }
+
+    private fun chartColorLine(percent: Double?): Int {
+        return if (percent!! < 0)
+            ContextCompat.getColor(requireContext(), R.color.goldenrod)
+        else
+            ContextCompat.getColor(requireContext(), R.color.turquoise)
+    }
+
+    private fun chartColorAlpha(percent: Double?): Int {
+        return if (percent!! < 0)
+            ContextCompat.getColor(requireContext(), R.color.goldenrodAlpha)
+        else
+            ContextCompat.getColor(requireContext(), R.color.turquoiseAlpha)
     }
 
 
